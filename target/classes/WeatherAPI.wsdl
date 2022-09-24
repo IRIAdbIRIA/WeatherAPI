@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://www.example.org/WeatherAPI/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="WeatherAPI" targetNamespace="http://www.example.org/WeatherAPI/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://www.example.org/WeatherAPI/">
+            <xsd:element name="GetTownWeatherRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="townName" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetTownWeatherResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="countryName" nillable="true" type="xsd:string"/>
+                        <xsd:element name="tempMorn" nillable="true" type="xsd:double"/>
+                        <xsd:element name="tempDay" nillable="true" type="xsd:double"/>
+                        <xsd:element name="tempEve" nillable="true" type="xsd:double"/>
+                        <xsd:element name="tempNight" nillable="true" type="xsd:double"/>
+                        <xsd:element name="tempMin" nillable="true" type="xsd:double"/>
+                        <xsd:element name="tempMax" nillable="true" type="xsd:double"/>
+                        <xsd:element name="weatherType" nillable="true" type="xsd:double"/>
+                        <xsd:element name="pressure" nillable="true" type="xsd:double"/>
+                        <xsd:element name="humidity" nillable="true" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GetTownWeatherRequestFault">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="desc" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="NewGetTownWeatherOperationRequest">
+        <wsdl:part element="tns:GetTownWeatherRequest" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="NewGetTownWeatherOperationResponse">
+        <wsdl:part element="tns:GetTownWeatherResponse" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="GetTownWeatherRequestFaultMessage">
+        <wsdl:part element="tns:GetTownWeatherRequestFault" name="error"/>
+    </wsdl:message>
+
+    <wsdl:portType name="WeatherAPI">
+        <wsdl:operation name="GetWeatherOperation">
+            <wsdl:input message="tns:NewGetTownWeatherOperationRequest"/>
+            <wsdl:output message="tns:NewGetTownWeatherOperationResponse"/>
+            <wsdl:fault name="InputFault" message="tns:GetTownWeatherRequestFaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="WeatherAPISoap" type="tns:WeatherAPI">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetWeatherOperation">
+            <soap:operation soapAction="http://www.example.org/WeatherAPI/GetWeatherOperation"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InputFault">
+                <soap:fault name="InputFault" use="literal" />
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="WeatherAPI">
+        <wsdl:port binding="tns:WeatherAPISoap" name="WeatherAPISoap">
+            <soap:address location="http://www.example.org/"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
