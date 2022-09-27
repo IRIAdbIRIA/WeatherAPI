@@ -2,7 +2,7 @@
 package net.atos.weatherApplication.soap;
 
 
-import jakarta.xml.ws.WebFault;
+import javax.xml.ws.WebFault;
 
 
 /**

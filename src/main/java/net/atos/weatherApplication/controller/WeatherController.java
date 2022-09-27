@@ -26,11 +26,6 @@ public class WeatherController {
     @Autowired
     public WeatherController(CityService service) {
         this.service = service;
-        City city = new City();
-        city.setCityName("Kraków");
-        city.setLat(50.049683);
-        city.setLon(19.944544);
-        service.save(city);
     }
 
 

@@ -1,7 +1,5 @@
 package net.atos.weatherApplication.api;
 
-import jakarta.xml.ws.RequestWrapper;
-import jakarta.xml.ws.ResponseWrapper;
 import lombok.extern.slf4j.Slf4j;
 import net.atos.weatherApplication.objects.City;
 import net.atos.weatherApplication.objects.WeatherDay;

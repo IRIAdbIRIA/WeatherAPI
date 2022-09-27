@@ -1,9 +1,8 @@
 
 package net.atos.weatherApplication.soap;
 
-import jakarta.xml.ws.*;
-
 import javax.xml.namespace.QName;
+import javax.xml.ws.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
